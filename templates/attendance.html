@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %} Record Attendance {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+        <a class="navbar-brand font-weight-bold" href="#" style="color: #34495E;">Attendance Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dashboard') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('attendance_by_student') }}">Student-wise Attendance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('view_attendance') }}">Date-wise Attendance</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Title -->
+    <div class="text-center mb-4">
+        <h2 class="font-weight-bold" style="color: #34495E;" onclick="window.location.reload();">Mark Attendance</h2>
+        <p class="text-muted">Select a subject to record attendance.</p>
+    </div>
+
+    <!-- Flash Message -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-info mt-4 text-center shadow-sm">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Form Section -->
+    <div class="card shadow-sm p-4 mb-4" style="max-width: 50%; margin: 0 auto; font-size: 14px;">
+        <form method="POST" action="{{ url_for('record_attendance') }}">
+            <div class="form-group">
+                <label for="subject_id" class="form-label font-weight-bold">Select Subject</label>
+                <select id="subject_id" name="subject_id" class="form-control" required>
+                    <option value="" disabled selected>Select a subject</option>
+                    {% for subject in subjects %}
+                        <option value="{{ subject.subject_id }}">{{ subject.subject_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block font-weight-bold">
+                <i class="fas fa-check-circle"></i> Record Attendance
+            </button>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

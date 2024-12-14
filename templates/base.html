@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Dashboard {% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Sidebar Styles */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #2C3E50;
+            padding-top: 20px;
+            padding-bottom: 50px;
+            color: white;
+            overflow-y: auto; /* Make sidebar scrollable */
+        }
+
+        .sidebar a {
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            font-size: 18px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar a:hover {
+            background-color: #34495E;
+        }
+
+        .sidebar .nav-item {
+            margin: 10px 0;
+        }
+
+        .content {
+            margin-left: 260px;
+        }
+
+        .card {
+            margin-top: 20px;
+        }
+
+        /* Logout Button at the Bottom */
+        .logout-btn {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Quick Actions Styles */
+        .quick-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 200px;
+            margin: auto;
+        }
+
+        .quick-actions .btn {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .quick-actions .btn i {
+            margin-right: 8px;
+        }
+
+        /* Active and Inactive Management Links */
+        .management-dropdown .collapse {
+            padding-left: 20px;
+        }
+
+        .collapse a {
+            padding-left: 20px;
+        }
+
+        /* Scrollable sidebar */
+        .sidebar {
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+
+        /* Styling for collapse in case it has a lot of options */
+        .collapse a {
+            padding-left: 20px;
+        }
+
+        /* Styling for Dashboard Info Box */
+        .dashboard-info {
+            margin-top: 20px;
+            background-color: #f7f7f7;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-info h4 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-info ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .dashboard-info ul li {
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4 class="text-center">Dashboard</h4>
+        <a href="{{ url_for('dashboard') }}"><i class="fas fa-home"></i> Home</a>
+
+        <!-- Student Management -->
+        <div class="management-dropdown">
+            <a href="#studentManagement" data-toggle="collapse" aria-expanded="false" aria-controls="studentManagement">
+                <i class="fas fa-user-graduate"></i> Student Management
+            </a>
+            <div class="collapse" id="studentManagement">
+                <a href="{{ url_for('add_student_route') }}">Add Student</a>
+                <a href="{{ url_for('view_students') }}">View Students</a>
+            </div>
+        </div>
+
+        <!-- Subject Management -->
+        <div class="management-dropdown">
+            <a href="#subjectManagement" data-toggle="collapse" aria-expanded="false" aria-controls="subjectManagement">
+                <i class="fas fa-book"></i> Subject Management
+            </a>
+            <div class="collapse" id="subjectManagement">
+                <a href="{{ url_for('add_subject_route') }}">Add Subject</a>
+                <a href="{{ url_for('view_subjects') }}">View Subjects</a>
+            </div>
+        </div>
+
+        <!-- Attendance Management -->
+        <div class="management-dropdown">
+            <a href="#attendanceManagement" data-toggle="collapse" aria-expanded="false" aria-controls="attendanceManagement">
+                <i class="fas fa-check-circle"></i> Attendance Management
+            </a>
+            <div class="collapse" id="attendanceManagement">
+                <a href="{{ url_for('record_attendance') }}">Record Attendance</a>
+                <a href="{{ url_for('view_attendance') }}">View Attendance</a>
+                <a href="{{ url_for('attendance_by_student') }}">Student Attendance</a>
+            </div>
+        </div>
+
+        <!-- Logout Button at the Bottom -->
+        <div class="logout-btn">
+            <a href="{{ url_for('logout') }}" class="btn btn-danger btn-block">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Ensure that only one management section is open at a time
+        $('#studentManagement').on('show.bs.collapse', function () {
+            $('#subjectManagement').collapse('hide');
+            $('#attendanceManagement').collapse('hide');
+        });
+        $('#subjectManagement').on('show.bs.collapse', function () {
+            $('#studentManagement').collapse('hide');
+            $('#attendanceManagement').collapse('hide');
+        });
+        $('#attendanceManagement').on('show.bs.collapse', function () {
+            $('#studentManagement').collapse('hide');
+            $('#subjectManagement').collapse('hide');
+        });
+    </script>
+</body>
+</html>

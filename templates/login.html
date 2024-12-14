@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Face Recognition Attendance System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .navbar-brand {
+            color: #34495E;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            color: #34495E;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #3498DB;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #3498DB;
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            padding: 20px;
+        }
+
+        .card-body {
+            padding: 40px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: none;
+        }
+
+        .form-control:focus {
+            border-color: #3498DB;
+        }
+
+        .btn-primary {
+            background-color: #3498DB;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980B9;
+        }
+
+        .alert-info {
+            background-color: #D6EAF8;
+            color: #2980B9;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .footer-links a {
+            color: #2980B9;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">Face Recognition Attendance System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- Flash Message -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info mt-4 text-center">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Login Form -->
+        <div class="card mx-auto" style="max-width: 400px;">
+            <div class="card-header">
+                <h4>Login to Your Account</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="email" class="font-weight-bold">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="font-weight-bold">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" required placeholder="Enter your password">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-4">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Additional Links -->
+        <div class="footer-links text-center mt-4">
+            <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a></p>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

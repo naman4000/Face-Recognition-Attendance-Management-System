@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+        <a class="navbar-brand font-weight-bold" href="#" style="color: #34495E;">Face Recognition System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="{{ url_for('dashboard') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('add_student_route') }}">New Student</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('add_subject_route') }}">New Subject</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('view_attendance') }}">View Attendance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Title -->
+    <div class="text-center mb-4">
+        <h2 class="font-weight-bold" style="color: #34495E;" onclick="window.location.reload();">Dashboard</h2>
+        <p class="text-muted">Overview of the Face Recognition Attendance System</p>
+    </div>
+
+    <!-- Flash Message -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-info mt-4 text-center shadow-sm">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Dashboard Cards Section -->
+    <div class="row">
+        <!-- Card 1: Total Registered Students -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card shadow-sm text-white" style="background-color: #3498DB; font-size: 14px;">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-graduate fa-3x"></i>
+                    <h5 class="card-title font-weight-bold mt-3">Total Registered Students</h5>
+                    <p class="card-text">View the total number of students registered in the system.</p>
+                    <a href="{{ url_for('view_students') }}" class="btn btn-light">View Students</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2: Total Registered subjects -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card shadow-sm text-white" style="background-color: #2ECC71; font-size: 14px;">
+                <div class="card-body text-center">
+                    <i class="fas fa-book fa-3x"></i>
+                    <h5 class="card-title font-weight-bold mt-3">Total Registered Subjects</h5>
+                    <p class="card-text">View the total number of subjects available in the system.</p>
+                    <a href="{{ url_for('view_subjects') }}" class="btn btn-light">View Subjects</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3: Mark/Fill Attendance -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card shadow-sm text-white" style="background-color: #F39C12; font-size: 14px;">
+                <div class="card-body text-center">
+                    <i class="fas fa-pencil-alt fa-3x"></i>
+                    <h5 class="card-title font-weight-bold mt-3">Mark Attendance</h5>
+                    <p class="card-text">Easily mark attendance for students using the face recognition system.</p>
+                    <a href="{{ url_for('record_attendance') }}" class="btn btn-light">Mark Attendance</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Face Recognition System Information -->
+    <div class="card shadow-sm p-4 mb-4">
+        <h4 class="font-weight-bold text-primary">Face Recognition Attendance System</h4>
+        <p class="text-muted">Innovative and efficient attendance tracking system using face recognition technology.</p>
+        <div class="card-body">
+            <p>Our Face Recognition Attendance System ensures accurate and secure attendance tracking by capturing the student's facial features in real-time. It eliminates the need for manual attendance marking, reducing errors and ensuring reliable records.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>Secure and accurate identification of students through facial recognition.</li>
+                <li>Automatic attendance logging with time and date stamps.</li>
+                <li>Real-time tracking and reporting of attendance data.</li>
+                <li>User-friendly interface for both students and faculty members.</li>
+            </ul>
+            <p>Implementing this system not only improves the efficiency of attendance management but also reduces the possibility of proxy attendance and ensures data integrity.</p>
+            
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %} Add Subject {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+        <a class="navbar-brand font-weight-bold" href="#" style="color: #34495E;">Subject Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dashboard') }}"> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('view_subjects') }}"> View Subjects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('record_attendance') }}">Mark Attendance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}"> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Title -->
+    <div class="text-center mb-4">
+        <h2 class="font-weight-bold" style="color: #34495E;" onclick="window.location.reload();"> Add New Subject</h2>
+        <p class="text-muted">Create a new subject to manage in the portal.</p>
+    </div>
+
+    <!-- Add Subject Form -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm" style="border-radius: 10px; overflow: hidden;">
+                <div class="card-body" style="background: #f8f9fa;">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="alert alert-info">
+                                <ul>
+                                    {% for message in messages %}
+                                        <li>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="subject_name" style="font-weight: bold; color: #555;">📄 Subject Name:</label>
+                            <input type="text" id="subject_name" name="subject_name" class="form-control" required placeholder="Enter the subject name" style="padding: 12px; font-size: 14px;">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block font-weight-bold">
+                            <i class="fas fa-plus-circle"></i> Add Subject
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
